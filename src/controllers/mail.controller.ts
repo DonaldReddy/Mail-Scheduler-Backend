@@ -1,9 +1,11 @@
 import { Request, Response } from "express";
+import { ScheduleMailDTO } from "../dto/scheduleMail.dto.js";
 
-async function scheduleMail(req: Request, res: Response) {
-	// TODO: Implement mail scheduling
+async function scheduleMail(
+	req: Request<{}, {}, ScheduleMailDTO>,
+	res: Response,
+) {
 	console.log(req.body);
-
 	res.send("Mail scheduled");
 }
 

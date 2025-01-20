@@ -13,7 +13,7 @@ function updateImports(dir) {
 		} else if (file.endsWith(".js")) {
 			// Read the contents of the file
 			let content = fs.readFileSync(fullPath, "utf8");
-			content = content.replace(/\.\/(.*?)\.ts/g, "./$1.js"); // Regex to match and replace imports
+			content = content.replace(/(\.\/[^'"]+)(?<!\.js)(?=['"])/g, "$1.js"); // Regex to match and replace imports
 
 			// Write the modified content back to the file
 			fs.writeFileSync(fullPath, content, "utf8");

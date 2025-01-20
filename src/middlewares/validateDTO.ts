@@ -5,7 +5,9 @@ import { Request, Response, NextFunction } from "express";
 
 export function validateDTO(dtoClass: any) {
 	return async (req: Request, res: Response, next: NextFunction) => {
-		const dtoInstance = plainToInstance(dtoClass, req.body);
+		const dtoInstance = plainToInstance(dtoClass, req.body, {
+			excludeExtraneousValues: true,
+		});
 		const errors = await validate(dtoInstance);
 
 		if (errors.length > 0) {
@@ -17,6 +19,7 @@ export function validateDTO(dtoClass: any) {
 				})),
 			});
 		} else {
+			req.body = dtoInstance;
 			next();
 		}
 	};
